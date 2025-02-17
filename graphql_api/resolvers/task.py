@@ -2,17 +2,24 @@ from sqlmodel import Session
 import strawberry
 from typing import List, Optional
 from graphql_api.types import Task
+from strawberry.types import Info
 from crud.task import create_task, get_tasks, get_task
 
 @strawberry.type
 class TaskQuery:
     @strawberry.field
-    def tasks(self) -> List[Task]:
-        return get_tasks()
+    def tasks(self, info: Info) -> List[Task]:
+        session: Session = info.context.get("session")
+        if session is None:
+            raise ValueError("Session is missing from context")
+        return get_tasks(session)
 
     @strawberry.field
-    def task(self, task_id: int) -> Task:
-        return get_task(task_id)
+    def task(self, task_id: int, info: Info) -> Task:
+        session: Session = info.context.get("session")
+        if session is None:
+            raise ValueError("Session is missing from context")
+        return get_task(session, task_id)
 
 @strawberry.type
 class TaskMutation:

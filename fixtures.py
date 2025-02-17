@@ -6,10 +6,10 @@ from models.task import Task
 import datetime
 
 def clear_existing_data(session: Session):
-    session.query(User).delete()
-    session.query(Project).delete()
-    session.query(Comment).delete()
     session.query(Task).delete()
+    session.query(Comment).delete()
+    session.query(Project).delete()
+    session.query(User).delete()
     session.commit()
 
 def create_fixtures(session: Session):
