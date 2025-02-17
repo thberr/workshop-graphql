@@ -13,20 +13,3 @@ def create_task(session: Session, title: str, description: str, project_id: int,
     session.commit()
     session.refresh(task)
     return task
-
-def update_task(session: Session, task_id: int, title: str, description: str, completed: bool):
-    task = session.get(Task, task_id)
-    if task:
-        task.title = title
-        task.description = description
-        task.completed = completed
-        session.commit()
-        session.refresh(task)
-    return task
-
-def delete_task(session: Session, task_id: int):
-    task = session.get(Task, task_id)
-    if task:
-        session.delete(task)
-        session.commit()
-    return task
