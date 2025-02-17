@@ -1,12 +1,9 @@
-from typing import List
-from fastapi import Depends, FastAPI, HTTPException
-from sqlmodel import Session, select
+from fastapi import FastAPI, Depends
+from sqlmodel import Session
 from strawberry.fastapi import GraphQLRouter
-from database import create_db_and_tables, get_session
+from database import create_db_and_tables, get_session, engine
+from fixtures import create_fixtures
 from graphql_api.schema import schema
-from models.project import Project
-from models.comment import Comment
-from models.user import User
 
 app = FastAPI()
 

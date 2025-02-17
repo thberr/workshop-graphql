@@ -10,4 +10,5 @@ class Project:
     description: str
     createdAt: str
     updatedAt: str
-    comments: List[LazyType("Comment", module="graphql_api.types.comment")]  # Correct
+    comments: List[LazyType("Comment", module="graphql_api.types.comment")]
+    tasks: List[LazyType("Task", module="graphql_api.types.task")]

@@ -6,4 +6,4 @@ from strawberry import LazyType
 class User:
     id: int
     email: str
-    comments: List[LazyType("Comment", module="graphql_api.types.comment")]  # Correct
+    comments: List[LazyType("Comment", module="graphql_api.types.comment")]

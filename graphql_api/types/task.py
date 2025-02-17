@@ -3,8 +3,10 @@ from typing import List
 from strawberry import LazyType
 
 @strawberry.type
-class Comment:
+class Task:
     id: int
-    content: str
-    author: LazyType("User", module="graphql_api.types.user")
+    title: str
+    description: str
+    completed: bool
     project: LazyType("Project", module="graphql_api.types.project")
+    user: LazyType("User", module="graphql_api.types.user")

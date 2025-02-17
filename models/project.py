@@ -10,3 +10,4 @@ class Project(SQLModel, table=True):
     updatedAt: str = Field(index=True)
 
     comments: List["Comment"] = Relationship(back_populates="project")
+    tasks: List["Task"] = Relationship(back_populates="project")
