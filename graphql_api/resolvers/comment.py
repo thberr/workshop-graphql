@@ -29,3 +29,27 @@ class CommentMutation:
     ) -> Comment:
         session: Session = info.context["session"]
         return create_comment(session, content, author_id, project_id)
+    
+    @strawberry.mutation
+    def updateComment(self, commentId: int, content: str, authorId: int, projectId: int, session: strawberry.Info) -> Comment:
+        session = session.context.get("session")
+        comment = get_comment(session, commentId)
+        if comment:
+            comment.content = content
+            comment.author_id = authorId
+            comment.project_id = projectId
+            session.add(comment)
+            session.commit()
+            session.refresh(comment)
+            return comment
+        raise Exception("Comment not found")
+    
+    @strawberry.mutation
+    def deleteComment(self, commentId: int, session: strawberry.Info) -> Comment:
+        session = session.context.get("session")
+        comment = get_comment(session, commentId)
+        if comment:
+            session.delete(comment)
+            session.commit()
+            return comment
+        raise Exception("Comment not found")

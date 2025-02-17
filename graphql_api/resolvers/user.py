@@ -27,3 +27,26 @@ class UserMutation:
     def add_user(self, email: str, info: strawberry.Info) -> User:
         session: Session = info.context["session"]
         return create_user(session, email)
+    
+    @strawberry.mutation
+    def updateUser(self, userId: int, email: str, session: strawberry.Info) -> User:
+        session = session.context.get("session")
+        user = get_user(session, userId)
+        if user:
+            user.email = email
+            session.add(user)
+            session.commit()
+            session.refresh(user)
+            return user
+        raise Exception("User not found")
+    
+    @strawberry.mutation
+    def deleteUser(self, userId: int, session: strawberry.Info) -> User:
+        session = session.context.get("session")
+        user = get_user(session, userId)
+        if user:
+            session.delete(user)
+            session.commit()
+            return user
+        raise Exception("User not found")
+

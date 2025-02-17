@@ -29,3 +29,29 @@ class ProjectMutation:
     ) -> Project:
         session: Session = info.context["session"]
         return create_project(session, slug, name, description, createdAt, updatedAt)
+    
+    @strawberry.mutation
+    def updateProject(self, projectId: int, slug: str, name: str, description: str, createdAt: str, updatedAt: str, session: strawberry.Info) -> Project:
+        session = session.context.get("session")
+        project = get_project(session, projectId)
+        if project:
+            project.slug = slug
+            project.name = name
+            project.description = description
+            project.createdAt = createdAt
+            project.updatedAt = updatedAt
+            session.add(project)
+            session.commit()
+            session.refresh(project)
+            return project
+        raise Exception("Project not found")
+    
+    @strawberry.mutation
+    def deleteProject(self, projectId: int, session: strawberry.Info) -> Project:
+        session = session.context.get("session")
+        project = get_project(session, projectId)
+        if project:
+            session.delete(project)
+            session.commit()
+            return project
+        raise Exception("Project not found")
