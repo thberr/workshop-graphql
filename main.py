@@ -16,13 +16,16 @@ SessionDep = Depends(get_session)
 def on_startup():
     create_db_and_tables()
 
-graphql_app = GraphQLRouter(schema)
+def get_context(session: Session = Depends(get_session)):
+    return {"session": session}
+
+graphql_app = GraphQLRouter(schema, context_getter=get_context)
+
 app.include_router(graphql_app, prefix="/graphql")
 
 @app.get("/")
 def health_check():
     return {"status": "ok"}
-
 
 @app.get("/users", response_model=List[User])
 def get_users(session: Session = SessionDep):
