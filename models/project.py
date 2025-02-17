@@ -9,5 +9,11 @@ class Project(SQLModel, table=True):
     createdAt: str = Field(index=True)
     updatedAt: str = Field(index=True)
 
-    comments: List["Comment"] = Relationship(back_populates="project")
-    tasks: List["Task"] = Relationship(back_populates="project")
+    tasks: List["Task"] = Relationship(
+        back_populates="project",
+        sa_relationship_kwargs={"cascade": "all, delete-orphan"}
+    )
+    comments: List["Comment"] = Relationship(
+        back_populates="project",
+        sa_relationship_kwargs={"cascade": "all, delete-orphan"}
+    )
