@@ -1,3 +1,5 @@
 fastapi 
 strawberry-graphql[debug-server]
+strawberry-graphql[fastapi]
 uvicorn
+sqlmodel
