@@ -13,6 +13,9 @@ SessionDep = Depends(get_session)
 def on_startup():
     create_db_and_tables()
 
+    with Session(engine) as session:
+        create_fixtures(session)
+
 def get_context(session: Session = Depends(get_session)):
     return {"session": session}
 
