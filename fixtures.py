@@ -1,8 +1,6 @@
 from sqlmodel import Session
-from models.user import User
-from models.project import Project
-from models.comment import Comment
-from models.task import Task
+from models import User, Project, Task, Comment
+from crud.user import hash_password
 import datetime
 
 def clear_existing_data(session: Session):
@@ -14,17 +12,16 @@ def clear_existing_data(session: Session):
 
 def create_fixtures(session: Session):
     clear_existing_data(session)
-    
-    user1 = User(email="user1@example.com")
-    user2 = User(email="user2@example.com")
+    user1 = User(email="user1@example.com", password=hash_password("password1"))
+    user2 = User(email="user2@example.com", password=hash_password("password2"))
     session.add(user1)
     session.add(user2)
     session.commit()
-
+    
     project1 = Project(slug="project1", name="Project 1", description="Description for project 1",
-                       createdAt=str(datetime.datetime.now()), updatedAt=str(datetime.datetime.now()))
+                       createdAt=datetime.datetime.now(), updatedAt=datetime.datetime.now())
     project2 = Project(slug="project2", name="Project 2", description="Description for project 2",
-                       createdAt=str(datetime.datetime.now()), updatedAt=str(datetime.datetime.now()))
+                       createdAt=datetime.datetime.now(), updatedAt=datetime.datetime.now())
     session.add(project1)
     session.add(project2)
     session.commit()

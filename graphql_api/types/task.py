@@ -1,12 +1,10 @@
 import strawberry
-from typing import List
 from strawberry import LazyType
 
 @strawberry.type
-class Task:
+class TaskType:
     id: int
     title: str
     description: str
     completed: bool
-    project: LazyType("Project", module="graphql_api.types.project")
-    user: LazyType("User", module="graphql_api.types.user")
+    project: LazyType("ProjectType", module="graphql_api.types.project")

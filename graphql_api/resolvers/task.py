@@ -1,21 +1,21 @@
 from sqlmodel import Session
 import strawberry
 from typing import List, Optional
-from graphql_api.types import Task
 from strawberry.types import Info
 from crud.task import create_task, get_tasks, get_task
+from graphql_api.types.task import TaskType
 
 @strawberry.type
 class TaskQuery:
     @strawberry.field
-    def tasks(self, info: Info) -> List[Task]:
+    def tasks(self, info: Info) -> List[TaskType]:
         session: Session = info.context.get("session")
         if session is None:
             raise ValueError("Session is missing from context")
         return get_tasks(session)
 
     @strawberry.field
-    def task(self, task_id: int, info: Info) -> Task:
+    def task(self, task_id: int, info: Info) -> TaskType:
         session: Session = info.context.get("session")
         if session is None:
             raise ValueError("Session is missing from context")
@@ -26,7 +26,7 @@ class TaskMutation:
     @strawberry.mutation
     def add_task(
         self, title: str, description: str, status: str, projectId: int, authorId: int, info: strawberry.Info
-    ) -> Task:
+    ) -> TaskType:
         session: Session = info.context["session"]
         return create_task(session, title, description, status, projectId, authorId)
 
@@ -34,7 +34,7 @@ class TaskMutation:
     def update_task(
         self, taskId: int, title: Optional[str], description: Optional[str], status: Optional[str], 
         projectId: Optional[int], authorId: Optional[int], info: strawberry.Info
-    ) -> Task:
+    ) -> TaskType:
         session: Session = info.context["session"]
         task = get_task(session, taskId)
         
@@ -57,7 +57,7 @@ class TaskMutation:
         raise Exception("Task not found")
 
     @strawberry.mutation
-    def delete_task(self, taskId: int, info: strawberry.Info) -> Task:
+    def delete_task(self, taskId: int, info: strawberry.Info) -> TaskType:
         session: Session = info.context["session"]
         task = get_task(session, taskId)
         

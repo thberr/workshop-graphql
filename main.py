@@ -4,6 +4,7 @@ from strawberry.fastapi import GraphQLRouter
 from database import create_db_and_tables, get_session, engine
 from fixtures import create_fixtures
 from graphql_api.schema import schema
+from middleware import AddUserToContext
 
 app = FastAPI()
 
@@ -22,3 +23,4 @@ def get_context(session: Session = Depends(get_session)):
 graphql_app = GraphQLRouter(schema, context_getter=get_context)
 
 app.include_router(graphql_app, prefix="/graphql")
+app.add_middleware(AddUserToContext)

@@ -3,7 +3,10 @@ from typing import List
 from strawberry import LazyType
 
 @strawberry.type
-class User:
+class UserType:
     id: int
     email: str
-    comments: List[LazyType("Comment", module="graphql_api.types.comment")]
+    password: str
+
+    comments: List[LazyType("CommentType", module="graphql_api.types.comment")]
+    tasks: List[LazyType("TaskType", module="graphql_api.types.task")]

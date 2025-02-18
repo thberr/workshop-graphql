@@ -3,19 +3,19 @@ import strawberry
 from typing import List
 from crud.project import create_project, get_projects, get_project
 from strawberry.types import Info
-from graphql_api.types import Project
+from graphql_api.types import ProjectType
 
 @strawberry.type
 class ProjectQuery:
     @strawberry.field
-    def projects(self, info: Info) -> List[Project]:
+    def projects(self, info: Info) -> List[ProjectType]:
         session = info.context.get("session")
         if session is None:
             raise ValueError("Session is missing from context")
         return get_projects(session)
 
     @strawberry.field
-    def project(self, project_id: int, info: Info) -> Project:
+    def project(self, project_id: int, info: Info) -> ProjectType:
         session = info.context.get("session")
         if session is None:
             raise ValueError("Session is missing from context")
@@ -26,12 +26,12 @@ class ProjectMutation:
     @strawberry.mutation
     def add_project(
         self, slug: str, name: str, description: str, createdAt: str, updatedAt: str, info: strawberry.Info
-    ) -> Project:
+    ) -> ProjectType:
         session: Session = info.context["session"]
         return create_project(session, slug, name, description, createdAt, updatedAt)
     
     @strawberry.mutation
-    def updateProject(self, projectId: int, slug: str, name: str, description: str, createdAt: str, updatedAt: str, session: strawberry.Info) -> Project:
+    def updateProject(self, projectId: int, slug: str, name: str, description: str, createdAt: str, updatedAt: str, session: strawberry.Info) -> ProjectType:
         session = session.context.get("session")
         project = get_project(session, projectId)
         if project:
@@ -47,7 +47,7 @@ class ProjectMutation:
         raise Exception("Project not found")
     
     @strawberry.mutation
-    def deleteProject(self, projectId: int, session: strawberry.Info) -> Project:
+    def deleteProject(self, projectId: int, session: strawberry.Info) -> ProjectType:
         session = session.context.get("session")
         project = get_project(session, projectId)
         if project:
