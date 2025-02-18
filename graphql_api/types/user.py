@@ -1,6 +1,8 @@
-import strawberry
 from typing import List
+
+import strawberry
 from strawberry import LazyType
+
 
 @strawberry.type
 class UserType:

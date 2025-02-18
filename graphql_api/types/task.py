@@ -1,6 +1,7 @@
 import strawberry
 from strawberry import LazyType
 
+
 @strawberry.type
 class TaskType:
     id: int

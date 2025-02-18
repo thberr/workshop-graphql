@@ -1,6 +1,9 @@
 import strawberry
-from graphql_api.resolvers import UserQuery, ProjectQuery, CommentQuery, TaskQuery
-from graphql_api.resolvers import UserMutation, ProjectMutation, CommentMutation, TaskMutation
+
+from graphql_api.resolvers import (CommentMutation, CommentQuery,
+                                   ProjectMutation, ProjectQuery, TaskMutation,
+                                   TaskQuery, UserMutation, UserQuery)
+
 
 @strawberry.type
 class Query(UserQuery, ProjectQuery, CommentQuery, TaskQuery):

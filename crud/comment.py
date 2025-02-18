@@ -1,5 +1,7 @@
 from sqlmodel import Session, select
+
 from models.comment import Comment
+
 
 def get_comments(session: Session):
     return session.exec(select(Comment)).all()

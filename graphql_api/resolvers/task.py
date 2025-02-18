@@ -1,9 +1,12 @@
-from sqlmodel import Session
-import strawberry
 from typing import List, Optional
+
+import strawberry
+from sqlmodel import Session
 from strawberry.types import Info
-from crud.task import create_task, get_tasks, get_task
+
+from crud.task import create_task, get_task, get_tasks
 from graphql_api.types.task import TaskType
+
 
 @strawberry.type
 class TaskQuery:

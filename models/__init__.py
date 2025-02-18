@@ -1,4 +1,4 @@
-from .user import User
-from .project import Project
 from .comment import Comment
+from .project import Project
 from .task import Task
+from .user import User

@@ -1,15 +1,19 @@
 import datetime
-from fastapi import HTTPException
-import jwt
-from sqlmodel import Session, select
-import strawberry
 from typing import List
-from crud.user import create_user, get_users, get_user
+
+import jwt
+import strawberry
+from fastapi import HTTPException
+from sqlmodel import Session, select
 from strawberry.types import Info
+
+from crud.user import create_user, get_user, get_users
 from graphql_api.types.login_type import LoginType
 from graphql_api.types.user import UserType
 from models.user import User
-from utils import ACCESS_TOKEN_EXPIRE_MINUTES, ALGORITHM, SECRET_KEY, verify_password
+from utils import (ACCESS_TOKEN_EXPIRE_MINUTES, ALGORITHM, SECRET_KEY,
+                   verify_password)
+
 
 @strawberry.type
 class UserQuery:

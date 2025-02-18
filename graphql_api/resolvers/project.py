@@ -1,9 +1,12 @@
-from sqlmodel import Session
-import strawberry
 from typing import List
-from crud.project import create_project, get_projects, get_project
+
+import strawberry
+from sqlmodel import Session
 from strawberry.types import Info
+
+from crud.project import create_project, get_project, get_projects
 from graphql_api.types import ProjectType
+
 
 @strawberry.type
 class ProjectQuery:

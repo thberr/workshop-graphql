@@ -1,7 +1,10 @@
-from sqlmodel import Session
-from models import User, Project, Task, Comment
-from crud.user import hash_password
 import datetime
+
+from sqlmodel import Session
+
+from crud.user import hash_password
+from models import Comment, Project, Task, User
+
 
 def clear_existing_data(session: Session):
     session.query(Task).delete()

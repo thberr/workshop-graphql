@@ -1,6 +1,8 @@
 from sqlmodel import Session, select
+
 from models.user import User
 from utils import hash_password
+
 
 def get_users(session: Session):
     statement = select(User)

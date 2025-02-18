@@ -1,9 +1,12 @@
-from sqlmodel import Session
-import strawberry
 from typing import List
-from crud.comment import create_comment, get_comments, get_comment
+
+import strawberry
+from sqlmodel import Session
 from strawberry.types import Info
+
+from crud.comment import create_comment, get_comment, get_comments
 from graphql_api.types import CommentType
+
 
 @strawberry.type
 class CommentQuery:

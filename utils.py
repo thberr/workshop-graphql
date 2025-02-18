@@ -1,5 +1,6 @@
-from passlib.context import CryptContext
 import os
+
+from passlib.context import CryptContext
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = os.getenv("ALGORITHM")

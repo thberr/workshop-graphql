@@ -1,5 +1,7 @@
-from sqlmodel import Relationship, SQLModel, Field
 from typing import List
+
+from sqlmodel import Field, Relationship, SQLModel
+
 
 class User(SQLModel, table=True):
     id: int = Field(default=None, primary_key=True)

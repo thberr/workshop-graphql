@@ -1,5 +1,7 @@
 from sqlmodel import Session, select
+
 from models.task import Task
+
 
 def get_tasks(session: Session):
     return session.exec(select(Task)).all()

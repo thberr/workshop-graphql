@@ -1,7 +1,8 @@
-from fastapi import FastAPI, Depends
+from fastapi import Depends, FastAPI
 from sqlmodel import Session
 from strawberry.fastapi import GraphQLRouter
-from database import create_db_and_tables, get_session, engine
+
+from database import create_db_and_tables, engine, get_session
 from fixtures import create_fixtures
 from graphql_api.schema import schema
 from middleware import AddUserToContext

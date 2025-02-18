@@ -1,5 +1,7 @@
 from sqlmodel import Session, select
+
 from models.project import Project
+
 
 def get_projects(session: Session):
     return session.exec(select(Project)).all()

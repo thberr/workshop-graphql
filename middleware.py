@@ -1,8 +1,10 @@
-from fastapi import Request, HTTPException
-from starlette.middleware.base import BaseHTTPMiddleware
-import jwt
 import os
+
+import jwt
 from dotenv import load_dotenv
+from fastapi import HTTPException, Request
+from starlette.middleware.base import BaseHTTPMiddleware
+
 from models import User
 
 load_dotenv()

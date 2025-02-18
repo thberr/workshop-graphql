@@ -1,4 +1,4 @@
-from .user import UserQuery, UserMutation
-from .project import ProjectQuery, ProjectMutation
-from .comment import CommentQuery, CommentMutation
-from .task import TaskQuery, TaskMutation
+from .comment import CommentMutation, CommentQuery
+from .project import ProjectMutation, ProjectQuery
+from .task import TaskMutation, TaskQuery
+from .user import UserMutation, UserQuery
